@@ -33,11 +33,12 @@ def diff(flist, outfile, avoid):
                         nJson['log']['entries'].append(ent)
 
             reader.close()
-        
-        for entry in nJson['log']['entries']:
-            ending = entry['request']['url'].split(".")
+       
+        tempJson = nJson
+        for entry in tempJson['log']['entries']:
+            ending = entry['request']['url'].split(".")[-1]
             if ending in avoid:
-                nJson['log']['entries'].remove(removable)
+                nJson['log']['entries'].remove(entry)
         json.dump(nJson, writer)
     finally:
         writer.close()
