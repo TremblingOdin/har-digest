@@ -17,16 +17,19 @@ def diff(flist, outfile):
             if nJson is None:
                 nJson = data
             else:
-                count = 0
-                for entry in nJson['log']['entries']:
-                    print("Comparing entry: ", count)
-                    count += 1
-                    for ent in data['log']['entries']:
+                print("new nJson count: ", nJson)
+                for ent in data['log']['entries']:
+                    found = False
+                    removable = None
+                    for entry in nJson['log']['entries']:
                         if ent['request'] == entry['request']:
-                           nJson['log']['entries'].remove(entry)
-                        else:
-                            nJson['log']['entries'].append(ent)
+                            found = True
+                            removable = entry
 
+                    if found:
+                        nJson['log']['entries'].remove(removable)
+                    else:
+                        nJson['log']['entries'].append(ent)
 
             reader.close()
         json.dump(nJson, writer)
