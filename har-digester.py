@@ -3,16 +3,16 @@
 import argparse,sys
 
 def diff(flist, outfile):
-    print('Creating the diff file in: %s', outfile)
+    print('Creating the diff file in: ', outfile)
     writer = open(outfile, 'w')
     try:
-        reader = open(flist[0],'r')
+        for f in flist:
+            print(f)
     finally:
-        reader.close()
         writer.close()
 
 def union(flist, outfile):
-    print('Creating the union file in: % s', outfile)
+    print('Creating the union file in: ', outfile)
     writer = open(outfile, 'w')
     try:
         reader = open(flist[0], 'r')
